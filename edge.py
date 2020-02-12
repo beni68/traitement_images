@@ -5,7 +5,7 @@ from __future__ import print_function
 from MyDatabase import MyDatabase
 from evaluate import myevaluate
 import matplotlib.pyplot as plt
-
+import matplotlib.image as mping
 from six.moves import cPickle
 import numpy as np
 import imageio
@@ -214,3 +214,9 @@ if __name__ == "__main__":
     print("Class {}, MAP {}".format(cls, MAP))
     cls_MAPs.append(MAP)
   print("MMAP", np.mean(cls_MAPs))
+
+  for i in range(len(db2)):
+    saveName = "/content/traitement_images/Data/result_edge/" + res[i] + "/" + \
+             db2.data.img[i].split('/')[-1]
+    bid = imageio.imread(db2.data.img[i])
+    mping.imsave(saveName, bid / 255)

@@ -209,6 +209,6 @@ if __name__ == "__main__":
     print("MMAP", np.mean(cls_MAPs))
 
     for i in range(len(db2)):
-        saveName = "/home/beni/PycharmProjects/traitement_image/old_school/Data/result/" + res[i] +"/" + db2.data.img[i].split('/')[-1]
+        saveName = "/content/traitement_images/Data/result_color/" + res[i] +"/" + db2.data.img[i].split('/')[-1]
         bid = imageio.imread(db2.data.img[i])
         mping.imsave(saveName,bid/255)

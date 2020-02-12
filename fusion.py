@@ -4,7 +4,8 @@ from __future__ import print_function
 
 import itertools
 import os
-
+import matplotlib.image as mping
+import imageio
 import numpy as np
 
 from HOG import HOG
@@ -110,18 +111,29 @@ def evaluate_feats(db, N, feat_pools=feat_pools, d_type='d1', depths=[None, 300,
 
 
 if __name__ == "__main__":
-    DB_train_dir = 'Data/train'
-    DB_train_csv = 'Data/train.csv'
-
+    DB_train_dir = '/content/Data/train'
+    DB_train_csv = '/content/train.csv'
     db = MyDatabase(DB_train_dir, DB_train_csv)
 
+    #  DB_test_dir = '../database/test'
+    #  DB_test_csv = 'data_test.csv'
+
+    DB_test_dir = '/content/val'
+    DB_test_csv = '/content/test.csv'
+
+    db2 = MyDatabase(DB_test_dir, DB_test_csv)
 
     # evaluate database
-    fusion = FeatureFusion(features=['color', 'edge'])
-    APs = evaluate_class(db, f_instance=fusion, d_type=d_type, depth=None)
+    fusion = FeatureFusion(features=['color', 'daisy'])
+    APs,res = evaluate_class(db, db2, f_instance=fusion, depth=3, d_type=d_type)
     cls_MAPs = []
     for cls, cls_APs in APs.items():
         MAP = np.mean(cls_APs)
         print("Class {}, MAP {}".format(cls, MAP))
         cls_MAPs.append(MAP)
     print("MMAP", np.mean(cls_MAPs))
+
+    for i in range(len(db2)):
+        saveName = "/content/traitement_images/Data/result_fusion/" + res[i] +"/" + db2.data.img[i].split('/')[-1]
+        bid = imageio.imread(db2.data.img[i])
+        mping.imsave(saveName,bid/255)
