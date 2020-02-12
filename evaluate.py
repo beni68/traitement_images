@@ -153,7 +153,6 @@ def evaluate_class(db, db2,f_class=None, f_instance=None, depth=None, d_type='d1
 
     classes = db.get_class()
     ret = {c: [] for c in classes}
-    retn = pd.DataFrame({'query': [], 'nearest1': [], 'nearest2': [], 'nearest3': []})
 
     if f_class:
         f = f_class()
@@ -169,7 +168,7 @@ def evaluate_class(db, db2,f_class=None, f_instance=None, depth=None, d_type='d1
         predict.append(pred)
         i += 1
 
-    return ret, retn
+    return ret, predict
 
 
 def myevaluate(db1, db2, sample_db_fn, depth=None, d_type='d1'):
