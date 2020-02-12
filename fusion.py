@@ -118,7 +118,7 @@ if __name__ == "__main__":
     #  DB_test_dir = '../database/test'
     #  DB_test_csv = 'data_test.csv'
 
-    DB_test_dir = '/content/val'
+    DB_test_dir = '/content/Data/test'
     DB_test_csv = '/content/test.csv'
 
     db2 = MyDatabase(DB_test_dir, DB_test_csv)
