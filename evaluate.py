@@ -140,7 +140,7 @@ def evaluate(db, sample_db_fn, depth=None, d_type='d1'):
     return ret
 
 
-def evaluate_class(db, f_class=None, f_instance=None, depth=None, d_type='d1'):
+def evaluate_class(db, db2,f_class=None, f_instance=None, depth=None, d_type='d1'):
     ''' infer the whole database
 
     arguments
@@ -160,12 +160,13 @@ def evaluate_class(db, f_class=None, f_instance=None, depth=None, d_type='d1'):
     elif f_instance:
         f = f_instance
     samples = f.make_samples(db)
+    samples_2 =f.make_samples(db2)
+    predict = []
     i = 0
-    for query in samples:
-        ap, nm = infer(query, samples=samples, depth=depth, d_type=d_type)
+    for query in samples_2:
+        ap, pred = infer(query, samples=samples, depth=depth, d_type=d_type)
         ret[query['cls']].append(ap)
-        mylist = [sub['img'] for sub in nm]
-        retn.loc[i] = [query['img'], mylist[0], mylist[1], mylist[2]]
+        predict.append(pred)
         i += 1
 
     return ret, retn

@@ -13,7 +13,7 @@ from MyDatabase import MyDatabase
 from color import Color
 from daisy import Daisy
 from edge import Edge
-from evaluate import evaluate_class
+from evaluate import evaluate_class, myevaluate
 from gabor import Gabor
 
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     db2 = MyDatabase(DB_test_dir, DB_test_csv)
 
     # evaluate database
-    fusion = FeatureFusion(features=['color', 'daisy'])
+    fusion = FeatureFusion(features=['color', 'edge'])
     APs,res = evaluate_class(db, db2, f_instance=fusion, depth=3, d_type=d_type)
     cls_MAPs = []
     for cls, cls_APs in APs.items():
